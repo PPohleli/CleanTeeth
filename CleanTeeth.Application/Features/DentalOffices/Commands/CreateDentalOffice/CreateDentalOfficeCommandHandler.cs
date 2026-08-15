@@ -1,5 +1,6 @@
 ﻿using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Exceptions;
 using CleanTeeth.Domain.Entities;
 using FluentValidation;
 using System;
@@ -29,7 +30,8 @@ namespace CleanTeeth.Application.Features.DentalOffices.Commands.CreateDentalOff
 
             if (!validationResult.IsValid)
             {
-                // Throw an exception or return an error response indicating validation failure
+                // Throw acustom exception
+                throw new CustomValidationException(validationResult);
             }
 
             var dentalOffice = new DentalOffice(command.Name);
