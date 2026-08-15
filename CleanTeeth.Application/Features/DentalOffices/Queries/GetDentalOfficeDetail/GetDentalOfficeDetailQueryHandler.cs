@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficeDetail
 {
-    public class GetDentalOfficeDetailQueryHandler : IRequestHandler<GetDentalOfficeDetailQuery, DentalOfficeDetalDTO>
+    public class GetDentalOfficeDetailQueryHandler : IRequestHandler<GetDentalOfficeDetailQuery, DentalOfficeDetailDTO>
     {
         private readonly IDentalOfficeRepository repository;
 
@@ -18,7 +18,7 @@ namespace CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficeD
             this.repository = repository;
         }
 
-        public async Task<DentalOfficeDetalDTO> Handle(GetDentalOfficeDetailQuery request)
+        public async Task<DentalOfficeDetailDTO> Handle(GetDentalOfficeDetailQuery request)
         {
             var dentalOffice = await repository.GetById(request.Id);
 
@@ -27,13 +27,7 @@ namespace CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficeD
                 throw new NotFoundException();
             }
 
-            var dto = new DentalOfficeDetalDTO
-            {
-                Id = dentalOffice.Id,
-                Name = dentalOffice.Name
-            };
-
-            return dto;
+            return dentalOffice.ToDTO();
         }
     }
 }
