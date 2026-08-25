@@ -19,6 +19,12 @@ namespace CleanTeeth.Persistence
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CleanTeethDbContext).Assembly);
+        }
         DbSet<DentalOffice> DentalOffices { get; set; }
     }
 }
