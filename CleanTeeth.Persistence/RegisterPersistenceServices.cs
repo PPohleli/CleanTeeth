@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,8 @@ namespace CleanTeeth.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
         {
             services.AddDbContext<CleanTeethDbContext>(options => options.UseSqlServer("name=CleanTeethConnectionString"));
+
+            services.AddScoped<IDentalOfficeRepository, DentalOfficeRepository>();
 
             return services;
         }
